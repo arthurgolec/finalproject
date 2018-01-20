@@ -8,7 +8,6 @@ from threading import Timer
 #makes a section of the game timed
 import sys
 
-
 lanes = ["top", "mid", "jungle", "bot", "support"]
 
 class Teammate:
@@ -157,8 +156,9 @@ print("""
 _____________________________________________________
 """)
 print("oh, narts, you were talking too much and forgot to pick a champion!")
-time.sleep(2)
-print("""the champions that you can choose are:
+time.sleep(5)
+print("the champions that you can choose are:")
+print("""
 Teemo
 Riven
 Sejuani
@@ -172,7 +172,7 @@ Alistar
 """)
 time.sleep(.75)
 
-timeout = 7.5
+timeout = 4
 t = Timer(timeout, print, ['Sorry, times up. You dodged'])
 t.start()
 prompt = "You have %d seconds to pick a champion...\n" % timeout
@@ -237,8 +237,8 @@ else:
     print("good call, i think its not a good idea to get on this guy's nerves")
 #first gameplay decision, whether the player wants to tilt his teammates
 
-
 time.sleep(2)
+
 if playeractuallane == "jungle":
     print("ok, as a jungler, you want a leash")
     time.sleep(2)
@@ -281,7 +281,7 @@ if playeractuallane == "jungle":
 elif playeractuallane == "bot" or playeractuallane == "support":
     print("as you start walking to lane, you jungle pings for a leash")
     time.sleep(3)
-    playerdecision4 = input("do you go and leash him?").lower()
+    playerdecision4 = input("do you go and leash him?  ").lower()
     if playerdecision4 == "yes" or playerdecision4 == "y":
         print("you go to leash him and all goes well. nice!")
     elif playerdecision4 == "no" or playerdecision4 == "n":
@@ -303,48 +303,53 @@ time.sleep(3)
 
 print("you get to lane and come up against your worst counter - a good yasuo")
 
-lanedecision1 = input("do you want to trade with the yasuo or just cs?").lower()
-if lanedecision1 == "trade" or lanedecision1 == "trade with the yasuo":
-    print("oh no, you missed your ability!")
-    print("yasuo hit lvl2 in the middle of the fight, which caused you to go down to 15% health.")
-    junglehelp = input("you realize that you need some help. do you want to recall without having teleport ready or do you want to ping your jungler?  ").lower()
-    if junglehelp == "recall":
-        print("you try to recall under tower, but by the point you made that decision, yasuo had already shoved the wave under tower")
+lanedecision1 = input("do you want to trade with the yasuo or just cs?  ").lower()
+
+while lanedecision1 != "trade" or lanedecision1 != "trade with the yasuo" or lanedecision1 != "cs" or lanedecision1 != "just cs":
+    if lanedecision1 == "trade" or lanedecision1 == "trade with the yasuo":
+        print("oh no, you missed your ability!")
+        print("yasuo hit lvl2 in the middle of the fight, which caused you to go down to 15% health.")
+        junglehelp = input("you realize that you need some help. do you want to recall without having teleport ready or do you want to ping your jungler?  ").lower()
+        if junglehelp == "recall":
+            print("you try to recall under tower, but by the point you made that decision, yasuo had already shoved the wave under tower")
+            time.sleep(2)
+            print("during the last 2 seconds of your recall, yasuo flash-e-q-aa-ignites you, causing you to die")
+            print("yasuo has also died, but it was an execute #feelsbadman (i.e. no gold for you)")
+            print("you go back to lane, but at this point yasuo is already 20 cs and a kill up on you")
+            print("yasuo begins to kda farm you")
+            print("yasuo goes 12-0 and begins to fountain dive you")
+            print("mid-lane was winning up to that point, at which point mid begins to int")
+            gameover(player3)
+        elif junglehelp == "call for jungle" or junglehelp == "jungle" or junglehelp == "ping your jungler" or junglehelp == "ping":
+            print(f"your jungler, {player4.champion}, ganks your lane, but yasuo ends up getting a double kill after dying with his ignite")
+            print("you go back to lane, but at this point yasuo is already 20 cs and a kill up on you")
+            print("yasuo begins to kda farm you")
+            print("yasuo goes 12-0 and begins to fountain dive you")
+            print("mid-lane was winning up to that point, at which point mid begins to int")
+            gameover(player3)
+    elif lanedecision1 == "cs" or lanedecision1 == "just cs":
+        print("good call, better than fighting him")
         time.sleep(2)
-        print("during the last 2 seconds of your recall, yasuo flash-e-q-aa-ignites you, causing you to die")
-        print("yasuo has also died, but it was an execute #feelsbadman (i.e. no gold for you)")
-        print("you go back to lane, but at this point yasuo is already 20 cs and a kill up on you")
-        print("yasuo begins to kda farm you")
-        print("yasuo goes 12-0 and begins to fountain dive you")
-        print("mid-lane was winning up to that point, at which point mid begins to int")
-        gameover(player3)
-    elif junglehelp == "call for jungle" or junglehelp == "jungle" or junglehelp == "ping your jungler" or junglehelp == "ping":
-        print(f"your jungler, {player4.champion}, ganks your lane, but yasuo ends up getting a double kill after dying with his ignite")
-        print("you go back to lane, but at this point yasuo is already 20 cs and a kill up on you")
-        print("yasuo begins to kda farm you")
-        print("yasuo goes 12-0 and begins to fountain dive you")
-        print("mid-lane was winning up to that point, at which point mid begins to int")
-        gameover(player3)
-elif lanedecision1 == "cs" or lanedecision1 == "just cs":
-    print("good call, better than fighting him")
-    time.sleep(2)
-    print("yasuo shoves you under tower and you begin missing cs")
-    time.sleep(2)
-    print("yasuo also begins poking you under tower")
-    time.sleep(2)
-    print("you never let him get ahead, but he gets ahead in cs and levels")
-    lanedecision2 = input("yasuo begins to group with his team. Do you want to split push or group with your team?  ").lower()
-    while True:
+        print("yasuo shoves you under tower and you begin missing cs")
+        time.sleep(2)
+        print("yasuo also begins poking you under tower")
+        time.sleep(2)
+        print("you never let him get kills in lane, but he gets ahead in cs and levels")
+        lanedecision2 = input("yasuo begins to group with his team. Do you want to split push or group with your team?  ").lower()
+
         if lanedecision2 == "stay in lane" or lanedecision2 == "split push" or lanedecision2 == "split":
             print("good call! you let your team know not to engage since it's a 4v5")
             time.sleep(2.5)
             print("the tier 2 turret is at 40% hp, but enemies are missing.")
+            time.sleep(2.75)
             lanedecision3 = input("do you want to finish off the turret or leave in case enemies come?")
+
             if lanedecision3 == "stay" or lanedecision3 == "finish" or lanedecision3 == "finish the turret":
                 print("oh no, you see the enemies coming")
+                breakloop = True
                 time.sleep(2)
                 print("press the 'enter' key as fast as you can to continue breaking the turret!!")
-                timeout = 3
+                timeout = 4
                 t = Timer(timeout, print, ['Sorry, you were too slow! You died before you got the turret'])
                 t.start()
                 print("You have %d seconds to break the turret...\n" % timeout)
@@ -356,8 +361,16 @@ elif lanedecision1 == "cs" or lanedecision1 == "just cs":
                 t.cancel()
                 print("you broke the turret in time! good job!")
                 #the before is an actual real game where you have to click fast enough to break the turret
+                time.sleep(1.5)
                 print("you still died, but you killed the turret. Good job!")
-                break
+                time.sleep(2)
+                print("uh oh, your team is still flaming you")
+                time.sleep(2)
+                print("you tell them you got the turret and they only lost 1 for it, but they are still fuming")
+                time.sleep(2.5)
+                print("your midlaner gets tilted, and buys 5 'Tears of Morelicon' and 1 pair of 'Boots of Mobility'")
+                time.sleep(2)
+                gameover(player3)
             elif lanedecision3 == "leave" or lanedecision3 == "leave in case" or lanedecision3 == "leave in case enemies come":
                 print("you tried to get away, but you still got caught")
                 time.sleep(1.5)
@@ -367,4 +380,24 @@ elif lanedecision1 == "cs" or lanedecision1 == "just cs":
                 print("you try to calm everyone down, but its no hope")
                 gameover(player4)
             else:
-                lanedecision3 = input("sorry, didnt get that. type 'stay' to stay or 'leave' to 'leave'")
+                lanedecision3 = input("sorry, didnt get that. type 'stay' to stay or 'leave' to 'leave")
+        elif lanedecision2 == "group" or lanedecision3 == "group with team":
+            print("you go to your team and start looking for an engage")
+            time.sleep(2)
+            print("your team decides to ignore the possibility rakan-yasuo knock-up combo")
+            time.sleep(1.5)
+            print("your team gets 5-man knocked up")
+            time.sleep(2)
+            print("the enemy team gets an ace")
+            time.sleep(1.5)
+            print("the enemy team destroys an inhib, the nexus turrets, and the nexus")
+            time.sleep(1.5)
+            print("gg")
+            time.sleep(4)
+            sys.exit()
+        else:
+            lanedecision2 = input("sorry, i didnt get that. type 'group' to group or 'split' to split push")
+    else:
+        lanedecsion1 = input("sorry, didnt get that. type 'trade' to trade or 'cs' to farm creeps")
+
+
