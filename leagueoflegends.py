@@ -9,8 +9,10 @@ from threading import Timer
 import sys
 
 lanes = ["top", "mid", "jungle", "bot", "support"]
+#lanes to choose from in the game
 
 class Teammate:
+    """makes the teammates used in the game, v basic"""
     def __init__(self, username, champion, lane):
         self.username = username
         self.champion = champion
@@ -23,6 +25,7 @@ player4 = Teammate("peanut", "sejuani", "jungle")
 player5 = Teammate("hashinshin", "jax", "top")
 
 def gameover(player):
+    """this function ends the game, taking the "player" arguement, which shows the player that ruined it"""
     print("""*for the entirety of the game, {player.champion} runs it down mid, a trademark move of his.
 there is nothing you can do and your nexus turrets die within minutes.
 your nexus dies shortly after""")
@@ -30,11 +33,14 @@ your nexus dies shortly after""")
     print("the end")
     time.sleep(5)
     sys.exit()
-    #this ends the game after printing what ends up happening
+
 
 def dodge():
+    """this function is what happens when the player leaves the game, shows how the player has to go through champ-select and the ban again"""
     print("Welcome back to the game? Would you like to play?")
+    time.sleep(.75)
     print("Of course you do, lets find you a game")
+    time.sleep(2)
     print("before that, we have to find you another lane")
     laneselect1 = input("So what lane do you want to play?  ")
     while True:
@@ -44,6 +50,7 @@ def dodge():
         elif laneselect1 in lanes:
             print("Got it, searching for game")
             lanes.remove(laneselect1)
+            #takes out the players lane from the lanes to be given
             time.sleep(1)
             print("...")
             time.sleep(1)
@@ -58,8 +65,6 @@ def dodge():
                 print("...")
         #this is going to show the 20 minute ban for leaving the game
 
-pickablechampions = ("teemo", "riven", "sejuani", "kha'zix", "azir", "leblanc", "draven", "tahm kench", "alistar")
-
 
 pusername = input("Hey! Before we get started, what is your username?  ")
 print("Ok, loading...")
@@ -71,10 +76,10 @@ if selection == "yes" or selection == "y":
     print("Wrong answer, but we'll continue anyways.")
 else:
     print("Feelsbadman. Your stuck playing anyways")
-#just a way to start off the game
+#just a way to start off the game, has no true effect on outcome
+
 
 laneselect = input('What lane do you wanna play? (type "lanes" for a list of lanes)  ').lower()
-
 while True:
     if laneselect == "lanes":
         print('"top", "mid", "jungle", "bot", "support"')
@@ -111,8 +116,9 @@ print(f"""-->{player2.username} ~ {player2.lane} or i feed
 print("""
 _____________________________________________________
 """)
+#shows one player being a doodie face using teammates class
 
-game_dodge_decision = input("Uh oh, a player is planning on inting. Do you want to leave and find another match or stay and wait it out?  ")
+game_dodge_decision = input("Uh oh, a player is planning on inting. Do you want to leave and find another match or stay and wait it out?  ").lower()
 while True:
     if game_dodge_decision == "leave" or game_dodge_decision == "leave and find another match" or game_dodge_decision == "find another match":
         leave_game_decision = input("Are you sure? You already left a few matches, so leaving now would result in a 20 minute ban.  ").lower()
@@ -120,6 +126,7 @@ while True:
             print("Ok, leaving match")
             time.sleep(2)
             dodge()
+            #if the player leaves, dodge runs and makes the player go through a 20 minute ban
         elif leave_game_decision == "no" or leave_game_decision == "n":
             print("Ok, good call")
             break
@@ -129,6 +136,7 @@ while True:
     if game_dodge_decision == "stay" or "stay and wait it out" or "wait it out":
         print("Good call, carry on")
         break
+        #continues the game
     else:
         game_dodge_decision = input("Sorry, i didn't get that. Type 'leave' to leave or 'stay' to stay")
 
@@ -158,6 +166,7 @@ _____________________________________________________
 print("oh, narts, you were talking too much and forgot to pick a champion!")
 time.sleep(5)
 print("the champions that you can choose are:")
+time.sleep(2)
 print("""
 Teemo
 Riven
@@ -170,7 +179,12 @@ Xayah
 Tahm Kench
 Alistar
 """)
-time.sleep(.75)
+
+pickablechampions = ("teemo", "riven", "sejuani", "kha'zix", "azir", "leblanc", "draven", "tahm kench", "alistar")
+#used in champselect to test for a valid input
+
+
+time.sleep(1.5)
 
 timeout = 4
 t = Timer(timeout, print, ['Sorry, times up. You dodged'])
@@ -218,7 +232,6 @@ if dravenint == "yes" or dravenint == "y":
             time.sleep(2)
             gameover(player1)
 
-        #this ends the game after printing what ends up happening
         elif bmmethod == "ping items" or "ping" or "items":
             for x in range(6):
                 print('"Draven(tyler1) - Health Potion (5)"')
@@ -230,6 +243,7 @@ if dravenint == "yes" or dravenint == "y":
             print("oh no, you made the wrong call! draven sold all of his items and bought boots. i wonder why")
             time.sleep(2)
             gameover(player1)
+#this ends the game after printing what ends up happening, the second part is just how it looks not what happens
         else:
             bmmethod = input('sorry, i didn\'t get that. type "spam" to spam "?" at him or "ping" to ping his items')
             continue
@@ -240,6 +254,7 @@ else:
 time.sleep(2)
 
 if playeractuallane == "jungle":
+    #gives gameplay decision based on what lane they play
     print("ok, as a jungler, you want a leash")
     time.sleep(2)
     print("you walk towards your red buff, but your bot doesnt come to help you")
@@ -255,6 +270,7 @@ if playeractuallane == "jungle":
                 time.sleep(5)
                 print("gg")
                 sys.exit()
+                #ends the game for the team not helping the player
             elif playerdecision3 == "solo" or playerdecision3 == "solo it" or playerdecision3 == "solo the red buff" or playerdecision3 == "solo red buff":
                 print("you get the red buff down to 600 hp, then get you red buff invaded by the enemy jungle and bot lane. you die")
                 time.sleep(5)
@@ -264,6 +280,7 @@ if playeractuallane == "jungle":
                 print(f"'/all {player1} ({player1.champion}) ~ gg'")
                 print(f"the other two players, {player3} and {player4} also lose because their lanes were camped all game")
                 gameover(player1)
+                #ends the game because the team didn't help
             else:
                 playerdecision3 = input("sorry, i didnt get that. type 'int' to int or 'solo' to solo the red buff")
     elif playerdecision2 == "no" or playerdecision2 == "n":
@@ -272,18 +289,23 @@ if playeractuallane == "jungle":
         print("you then decide to go to your blue buff, only to get killed and have your blue stolen again.")
         time.sleep(2)
         print("your bot lane starts bm-ing you in chat")
+        time.sleep(1.5)
         print(f'"/all {player1}({player1.champion}) ~ gg"')
+        time.sleep(1.2)
         print(f"the other two players, {player3} and {player4} also lose because their lanes were camped all game")
         gameover(player1)
+        #the team loses because you died too early on
     else:
         playerdecision2 = input("sorry, i didnt get that. type 'yes' to ping or 'no' to not ping").lower()
-#second decision in the game, deciding whether to leash the jungler
+#if you get jungle, you lose, #second decision in the game, deciding whether to leash the jungler
+
 elif playeractuallane == "bot" or playeractuallane == "support":
     print("as you start walking to lane, you jungle pings for a leash")
     time.sleep(3)
     playerdecision4 = input("do you go and leash him?  ").lower()
     if playerdecision4 == "yes" or playerdecision4 == "y":
         print("you go to leash him and all goes well. nice!")
+        #if the player helps, the game continues
     elif playerdecision4 == "no" or playerdecision4 == "n":
         playerdecision5 = input('uh oh, the jungler is continuing to ping "?" on you. are you sure you dont want to leash him?  ').lower()
         if playerdecision5 == "y" or playerdecision5 == "yes":
@@ -292,20 +314,23 @@ elif playeractuallane == "bot" or playeractuallane == "support":
             print(f"he buys boots and runs it down {playeractuallane}")
             print("because of your jungler, you lose your lane, and unfortunately, so do all other lanes")
             gameover(player4)
+            #player loses for not helping the team
     else:
         print("you leash him anyways, making the jungler happy :)")
 #second decision in the game, deciding whether to leash the jungler
 else:
     print("wow, you go to lane and no one ints!")
-#second decision in the game, deciding whether to leash the jungler
+#if the player gets top or mid, the game just continues
 
 time.sleep(3)
 
 print("you get to lane and come up against your worst counter - a good yasuo")
 
-lanedecision1 = input("do you want to trade with the yasuo or just cs?  ").lower()
+#i'm sorry, the part below is kind of disgusting
 
+lanedecision1 = input("do you want to trade with the yasuo or just cs?  ").lower()
 while lanedecision1 != "trade" or lanedecision1 != "trade with the yasuo" or lanedecision1 != "cs" or lanedecision1 != "just cs":
+    #makes it so the game doesn't progress until a valid input is given
     if lanedecision1 == "trade" or lanedecision1 == "trade with the yasuo":
         print("oh no, you missed your ability!")
         print("yasuo hit lvl2 in the middle of the fight, which caused you to go down to 15% health.")
@@ -314,19 +339,31 @@ while lanedecision1 != "trade" or lanedecision1 != "trade with the yasuo" or lan
             print("you try to recall under tower, but by the point you made that decision, yasuo had already shoved the wave under tower")
             time.sleep(2)
             print("during the last 2 seconds of your recall, yasuo flash-e-q-aa-ignites you, causing you to die")
+            time.sleep(2)
             print("yasuo has also died, but it was an execute #feelsbadman (i.e. no gold for you)")
+            time.sleep(1.5)
             print("you go back to lane, but at this point yasuo is already 20 cs and a kill up on you")
+            time.sleep(2)
             print("yasuo begins to kda farm you")
+            time.sleep(2)
             print("yasuo goes 12-0 and begins to fountain dive you")
+            time.sleep(1.75)
             print("mid-lane was winning up to that point, at which point mid begins to int")
             gameover(player3)
+            #ends the game if you decide to trade
         elif junglehelp == "call for jungle" or junglehelp == "jungle" or junglehelp == "ping your jungler" or junglehelp == "ping":
             print(f"your jungler, {player4.champion}, ganks your lane, but yasuo ends up getting a double kill after dying with his ignite")
+            time.sleep(2)
             print("you go back to lane, but at this point yasuo is already 20 cs and a kill up on you")
+            time.sleep(2)
             print("yasuo begins to kda farm you")
+            time.sleep(2)
             print("yasuo goes 12-0 and begins to fountain dive you")
+            time.sleep(2)
             print("mid-lane was winning up to that point, at which point mid begins to int")
+            time.sleep(2)
             gameover(player3)
+            #ends the game if you decide to ask for jungle help
     elif lanedecision1 == "cs" or lanedecision1 == "just cs":
         print("good call, better than fighting him")
         time.sleep(2)
@@ -343,6 +380,7 @@ while lanedecision1 != "trade" or lanedecision1 != "trade with the yasuo" or lan
             print("the tier 2 turret is at 40% hp, but enemies are missing.")
             time.sleep(2.75)
             lanedecision3 = input("do you want to finish off the turret or leave in case enemies come?")
+            #lets the player choose if they want to stay and finish the turret
 
             if lanedecision3 == "stay" or lanedecision3 == "finish" or lanedecision3 == "finish the turret":
                 print("oh no, you see the enemies coming")
@@ -360,7 +398,8 @@ while lanedecision1 != "trade" or lanedecision1 != "trade with the yasuo" or lan
                     enterlist.append(entercommand)
                 t.cancel()
                 print("you broke the turret in time! good job!")
-                #the before is an actual real game where you have to click fast enough to break the turret
+
+                #the before is an actual real game mechanic where you have to click fast enough to break the turret
                 time.sleep(1.5)
                 print("you still died, but you killed the turret. Good job!")
                 time.sleep(2)
@@ -371,6 +410,8 @@ while lanedecision1 != "trade" or lanedecision1 != "trade with the yasuo" or lan
                 print("your midlaner gets tilted, and buys 5 'Tears of Morelicon' and 1 pair of 'Boots of Mobility'")
                 time.sleep(2)
                 gameover(player3)
+                #if you stay and get the turret, your team tilts because you die and end up losing
+
             elif lanedecision3 == "leave" or lanedecision3 == "leave in case" or lanedecision3 == "leave in case enemies come":
                 print("you tried to get away, but you still got caught")
                 time.sleep(1.5)
@@ -379,6 +420,8 @@ while lanedecision1 != "trade" or lanedecision1 != "trade with the yasuo" or lan
                 print(f"you try to fight back, but the whole team began talking about the teamfight that {player4.champion} threw")
                 print("you try to calm everyone down, but its no hope")
                 gameover(player4)
+                #team feeds if you do not get the turret and you die instead
+
             else:
                 lanedecision3 = input("sorry, didnt get that. type 'stay' to stay or 'leave' to 'leave")
         elif lanedecision2 == "group" or lanedecision3 == "group with team":
@@ -395,9 +438,10 @@ while lanedecision1 != "trade" or lanedecision1 != "trade with the yasuo" or lan
             print("gg")
             time.sleep(4)
             sys.exit()
+            #you lose if you try and stay with the team
         else:
             lanedecision2 = input("sorry, i didnt get that. type 'group' to group or 'split' to split push")
     else:
         lanedecsion1 = input("sorry, didnt get that. type 'trade' to trade or 'cs' to farm creeps")
 
-
+#bada bing
