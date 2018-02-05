@@ -14,3 +14,4 @@ credit to gerstein and stackoverflow for helping me with this game
 i had trouble with the if elif statements
 the timer thing was very confusing but i still made it work
 https://stackoverflow.com/questions/15528939/python-3-timed-input
+https://www.draw.io/#G1SrQudzNJvpwBFf76QjWceEzbPaylR8Oi
